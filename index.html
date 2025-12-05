@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PGP Offline Tools</title>
+
+    <link rel="stylesheet" href="./css/pure-1.0.0.min.css">
+    <link rel="stylesheet" href="./css/pure-1.0.0.responsive.min.css">
+    <link rel="stylesheet" href="./css/utils.css">
+</head>
+
+<body>
+<header>PGP Offline Tools</header>
+
+<nav>
+    <div class="pure-menu pure-menu-horizontal">
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item"><a href="./encrypt.html" class="pure-menu-link">Encrypt</a></li>
+            <li class="pure-menu-item"><a href="./decrypt.html" class="pure-menu-link">Decrypt</a></li>
+            <li class="pure-menu-item"><a href="./sign.html" class="pure-menu-link">Sign</a></li>
+            <li class="pure-menu-item"><a href="./verify.html" class="pure-menu-link">Verify</a></li>
+            <li class="pure-menu-item"><a href="./generate.html" class="pure-menu-link">Generate</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="page-container">
+
+        <h2 style="text-align:center; margin-top:25px;">Secure Offline OpenPGP Toolkit</h2>
+
+        <p style="text-align:center; max-width:700px; margin:0 auto 30px; line-height:1.5;">
+            A set of offline OpenPGP tools for encryption, decryption, signing, verification, and key generation.<br>
+            All operations run entirely inside your browser. No data is transmitted or stored anywhere.
+        </p>
+
+        <!-- Security Notes -->
+        <section style="max-width:700px; margin:0 auto 40px;">
+            <h3>Security notes</h3>
+            <ul>
+                <li>No server communication or upload of any kind.</li>
+                <li>No analytics, tracking scripts, or network requests.</li>
+                <li>All data is processed locally using OpenPGP.js.</li>
+                <li>You can save this folder and run everything fully offline.</li>
+            </ul>
+        </section>
+
+        <!-- Tool Buttons -->
+        <section style="text-align:center; margin-bottom:50px;">
+            <h3>Tools</h3>
+
+            <div style="margin-top:20px;">
+                <a href="./encrypt.html" class="pure-button pure-button-primary" style="margin:5px;">Encrypt</a>
+                <a href="./decrypt.html" class="pure-button pure-button-primary" style="margin:5px;">Decrypt</a>
+                <a href="./sign.html" class="pure-button pure-button-primary" style="margin:5px;">Sign</a>
+                <a href="./verify.html" class="pure-button pure-button-primary" style="margin:5px;">Verify</a>
+                <a href="./generate.html" class="pure-button pure-button-primary" style="margin:5px;">Generate Keys</a>
+            </div>
+        </section>
+
+    </div>
+</main>
+
+<footer style="text-align:center; padding:20px 0; margin-top:30px; color:#666;">
+    © <span id="year"></span> URANOZ SOLUTIONS — All rights reserved.
+</footer>
+
+<script>
+    // Automatically set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

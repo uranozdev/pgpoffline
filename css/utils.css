@@ -1,0 +1,87 @@
+body {
+    font-family: 'Open sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header, nav {
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    text-align: center;
+    width: 100%;
+}
+
+header {
+    background: #30252E;
+    font-size: 42px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    padding: 50px 0;
+}
+
+nav {
+    background: #D6503E;
+    padding: 25px 0;
+    transition: box-shadow 400ms;
+    word-spacing: 26px;
+}
+
+main {
+    margin: 3em 1em;
+}
+
+button {
+    margin-top: 2em;
+}
+
+.pure-menu-link {
+    color: #FFFFFF;
+}
+
+.pure-menu-link:hover {
+    color: #30252E;
+}
+
+/* File input visual style */
+input[type="file"] {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+
+	padding: 0.5em 0.75em;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+
+	background-color: #ffffff;
+	font-family: 'Open sans', sans-serif;
+	font-size: 14px;
+
+	cursor: pointer;
+}
+
+/* Optional: nicer focus outline for file input */
+input[type="file"]:focus {
+	outline: none;
+	border-color: #4285f4;
+}
+
+#key-info {
+	display: block;
+	margin-top: 4px;
+	font-size: 12px;
+	color: #555;
+}
+
+@media screen and (min-width:48em) {
+	form fieldset {
+		margin: auto 5px !important;
+	}
+
+    .pure-u-md-1-2 {
+        width: 48%;
+    }
+
+	.container {
+		margin-left: .5em;
+	}
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PGP Generate</title>
+
+    <link rel="stylesheet" href="./css/pure-1.0.0.min.css">
+    <link rel="stylesheet" href="./css/pure-1.0.0.responsive.min.css">
+    <link rel="stylesheet" href="./css/utils.css">
+
+    <script src="./js/jquery-3.4.1.min.js"></script>
+    <script src="./js/openpgp.min.js"></script>
+    <script src="./js/utils.js"></script>
+</head>
+<body>
+<header>PGP Offline Tools</header>
+<nav>
+    <div class="pure-menu pure-menu-horizontal">
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item">
+                <a href="./encrypt.html" class="pure-menu-link">Encrypt</a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="./decrypt.html" class="pure-menu-link">Decrypt</a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="./sign.html" class="pure-menu-link">Sign</a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="./verify.html" class="pure-menu-link">Verify</a>
+            </li>
+            <li class="pure-menu-item pure-menu-selected">
+                <a href="./generate.html" class="pure-menu-link">Generate</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main class="pure-g">
+    <div class="pure-u-1">
+        <div class="page-container">
+            <p style="text-align: center; margin: 20px 0 15px;">
+                Generate a new OpenPGP key pair locally in your browser. The keys are never sent anywhere.
+            </p>
+
+            <form id="generate" class="pure-form pure-form-stacked pure-u-1 container">
+                <!-- Left column: user data + passphrase -->
+                <fieldset class="pure-u-1 pure-u-md-1-2">
+                    <label for="name">Name</label>
+                    <input name="name" type="text" id="name"
+                           class="pure-input-1"
+                           placeholder="Name for the key identity (for example, John Doe).">
+
+                    <label for="email">Email</label>
+                    <input name="email" type="text" id="email"
+                           class="pure-input-1"
+                           placeholder="Email associated with the key (optional but recommended).">
+
+                    <label for="passphrase">Passphrase</label>
+                    <input name="passphrase" type="password" id="passphrase"
+                           class="pure-input-1"
+                           placeholder="Passphrase to protect the private key (leave empty for no passphrase).">
+
+                    <button id="submit" class="pure-button pure-button-primary pure-input-1">
+                        Generate
+                    </button>
+                </fieldset>
+
+                <!-- Right column: generated keys -->
+                <fieldset class="pure-u-1 pure-u-md-1-2">
+                    <label for="pubkey">Public key</label>
+                    <textarea name="pubkey" id="pubkey"
+                              class="pure-input-1" cols="30" rows="10"
+                              readonly
+                              placeholder="The generated public key will appear here."></textarea>
+
+                    <label for="privkey">Private key</label>
+                    <textarea name="privkey" id="privkey"
+                              class="pure-input-1" cols="30" rows="10"
+                              readonly
+                              placeholder="The generated private key will appear here."></textarea>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

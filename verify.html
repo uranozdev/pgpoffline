@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PGP Verify</title>
+
+    <link rel="stylesheet" href="./css/pure-1.0.0.min.css">
+    <link rel="stylesheet" href="./css/pure-1.0.0.responsive.min.css">
+    <link rel="stylesheet" href="./css/utils.css">
+
+    <script src="./js/jquery-3.4.1.min.js"></script>
+    <script src="./js/openpgp.min.js"></script>
+    <script src="./js/utils.js"></script>
+</head>
+<body>
+<header>PGP Offline Tools</header>
+<nav>
+    <div class="pure-menu pure-menu-horizontal">
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item">
+                <a href="./encrypt.html" class="pure-menu-link">Encrypt</a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="./decrypt.html" class="pure-menu-link">Decrypt</a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="./sign.html" class="pure-menu-link">Sign</a>
+            </li>
+            <li class="pure-menu-item pure-menu-selected">
+                <a href="./verify.html" class="pure-menu-link">Verify</a>
+            </li>
+            <li class="pure-menu-item">
+                <a href="./generate.html" class="pure-menu-link">Generate</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main class="pure-g">
+    <div class="pure-u-1">
+        <div class="page-container">
+            <p style="text-align: center; margin: 20px 0 15px;">
+                Verify a clear-signed OpenPGP message using a public key. All operations run locally in your browser.
+            </p>
+
+            <form id="verify" class="pure-form pure-form-stacked pure-u-1 container">
+                <!-- Left column: signed message + public key -->
+                <fieldset class="pure-u-1 pure-u-md-1-2">
+                    <label for="message">Signed message</label>
+                    <textarea name="message" id="message"
+                              class="pure-input-1" cols="30" rows="10"
+                              placeholder="Paste the signed OpenPGP message here (BEGIN PGP SIGNED MESSAGE ...)."></textarea>
+
+                    <label for="key">Public key</label>
+                    <input name="key" type="file" id="key" class="pure-input-1">
+                    <small id="key-info">
+                        Use an ASCII-armored OpenPGP public key (for example, a .asc file).
+                    </small>
+
+                    <button id="submit" class="pure-button pure-button-primary pure-input-1">
+                        Verify
+                    </button>
+                </fieldset>
+
+                <!-- Right column: verification result -->
+                <fieldset class="pure-u-1 pure-u-md-1-2">
+                    <label for="result">Verification result</label>
+                    <pre id="result"
+                         class="pure-input-1"
+                         style="min-height: 19em; padding: 0.6em; overflow: auto; white-space: pre-wrap; background-color: #f5f5f5;">
+                    </pre>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>
