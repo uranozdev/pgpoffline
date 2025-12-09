@@ -1,109 +1,53 @@
-$(document).ready(function() {
-    // Encrypt
-    $('#encrypt').on('submit', function() {
-        const message = $('#message').val().trim();
-        if (!message) {
-            alert('Message is empty. Please enter some text to encrypt.');
-            return false;
-        }
-
+$(document).ready(function () {
+    // Encrypt form
+    $('#encrypt').on('submit', function () {
+        const message = $('#message').val();
         encrypt(message)
-            .then(result => {
-                $('#result').val(result);
-            })
-            .catch(err => {
-                console.error(err);
-                alert('Could not encrypt. Check the public key file and try again.');
-            });
-
+            .then(result => $('#result').val(result))
+            .catch(() => alert('Error in some fields'));
         return false;
     });
 
-    // Decrypt
-    $('#decrypt').on('submit', function() {
+    // Decrypt form
+    $('#decrypt').on('submit', function () {
         const passphrase = $('#passphrase').val();
-        $('#passphrase').val(''); // clear passphrase field as soon as we read it
-
-        const message = $('#message').val().trim();
-        if (!message) {
-            alert('Encrypted message is empty. Paste an armored PGP message.');
-            return false;
-        }
-
+        $('#passphrase').val('');
+        const message = $('#message').val();
         decrypt(message, passphrase)
-            .then(result => {
-                $('#result').val(result);
-            })
-            .catch(err => {
-                console.error(err);
-                alert('Could not decrypt. This can be caused by a wrong passphrase, wrong private key, or invalid PGP message.');
-            });
-
+            .then(result => $('#result').val(result))
+            .catch(() => alert('Error in some fields'));
         return false;
     });
 
-    // Sign
-    $('#sign').on('submit', function() {
+    // Sign form
+    $('#sign').on('submit', function () {
         const passphrase = $('#passphrase').val();
-        $('#passphrase').val(''); // clear passphrase after reading
-
-        const message = $('#message').val().trim();
-        if (!message) {
-            alert('Message is empty. Please enter some text to sign.');
-            return false;
-        }
-
+        const message = $('#message').val();
         sign(message, passphrase)
-            .then(result => {
-                $('#result').val(result);
-            })
-            .catch(err => {
-                console.error(err);
-                alert('Could not sign the message. Check the private key file and passphrase.');
-            });
-
+            .then(result => $('#result').val(result))
+            .catch(() => alert('Error in some fields'));
         return false;
     });
 
-    // Verify
-    $('#verify').on('submit', function() {
-        const message = $('#message').val().trim();
-        if (!message) {
-            alert('Signed message is empty. Paste a clear-signed PGP message.');
-            return false;
-        }
-
+    // Verify form
+    $('#verify').on('submit', function () {
+        const message = $('#message').val();
         verify(message)
             .then(result => {
-                if (!result) {
-                    $('#result').text('Invalid or untrusted signature.');
-                    return;
-                }
-
-                const text = [
-                    'Valid signature.',
-                    'Signer key id (hex): ' + result
-                ].join('\n');
+                const text = result
+                    ? ['Valid message!', 'Hex: ' + result].join('\n')
+                    : 'Signature is not valid.';
                 $('#result').text(text);
             })
-            .catch(err => {
-                console.error(err);
-                alert('Could not verify the signature. Check the signed message and public key.');
-            });
-
+            .catch(() => alert('Error in some fields'));
         return false;
     });
 
-    // Generate
-    $('#generate').on('submit', function() {
-        const name = $('#name').val().trim();
-        const email = $('#email').val().trim();
+    // Generate keys form
+    $('#generate').on('submit', function () {
+        const name = $('#name').val();
+        const email = $('#email').val();
         const passphrase = $('#passphrase').val();
-
-        if (!name || !email) {
-            alert('Name and e-mail are required to generate a key pair.');
-            return false;
-        }
 
         generate(name, email, passphrase)
             .then(result => {
@@ -111,191 +55,192 @@ $(document).ready(function() {
                     $('#pubkey').val(result.pub);
                     $('#privkey').val(result.priv);
                 } else {
-                    alert('Unexpected error while generating the key pair.');
+                    alert('Error');
                 }
             })
-            .catch(err => {
-                console.error(err);
-                alert('Could not generate the key pair. See console for details.');
-            });
-
+            .catch(() => alert('Error in some fields'));
         return false;
     });
 
-    // Copy button for result (works both for textarea and pre/text)
-    $('#copy-result').on('click', function() {
+    // Optional: copy result button (if present on the page)
+    $('#copy-result').on('click', function () {
         const $result = $('#result');
-        const text = $result.is('textarea') ? $result.val() : $result.text();
+        const text = $result.val ? ($result.val() || $result.text()) : $result.text();
         if (!text) {
+            alert('Nothing to copy.');
             return;
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).catch(function(err) {
-                console.error(err);
-            });
+            navigator.clipboard.writeText(text)
+                .catch(() => alert('Could not copy to clipboard.'));
+        } else {
+            alert('Clipboard API is not available in this browser.');
         }
     });
 
-    // Show basic info when a key file is selected
+    // Key file info (fingerprint) – works for public or private keys
     $('#key').on('change', function () {
         const files = $('#key').prop('files');
         const $info = $('#key-info');
 
+        // Some pages may not have key-info
         if (!$info.length) {
-            // No info element on this page; nothing to do.
             return;
         }
 
         if (!files || files.length === 0) {
-            $info.text('');
+            $info.text('Use an ASCII-armored OpenPGP key file (for example, a .asc file).');
             return;
         }
 
         files[0].text()
-            .then(function (text) {
-                // Quick sanity check: is this an ASCII-armored OpenPGP key?
-                if (!text.includes('BEGIN PGP PUBLIC KEY BLOCK')) {
+            .then(async function (text) {
+                if (
+                    !text.includes('BEGIN PGP PUBLIC KEY BLOCK') &&
+                    !text.includes('BEGIN PGP PRIVATE KEY BLOCK')
+                ) {
                     $info.text(
-                        'This file does not look like an ASCII-armored OpenPGP public key. ' +
-                        'Please use a PGP public key (not an SSH .pub file).'
+                        'This file does not look like an ASCII-armored OpenPGP key. ' +
+                        'Please use a PGP key file (not an SSH .pub file).'
                     );
-                    return null;
-                }
-                return openpgp.key.readArmored(text);
-            })
-            .then(function (result) {
-                if (!result) {
-                    // We already showed a specific message above.
                     return;
                 }
-                if (!result.keys || result.keys.length === 0) {
+
+                try {
+                    // readKey accepts both public and private keys
+                    const key = await openpgp.readKey({ armoredKey: text });
+                    const fp = key.getFingerprint();
+                    $info.text('Loaded key fingerprint: ' + fp);
+                } catch (e) {
+                    console.error(e);
                     $info.text('Could not parse this OpenPGP key file.');
-                    return;
                 }
-                const fp = result.keys[0].getFingerprint();
-                $info.text('Loaded key fingerprint: ' + fp);
             })
             .catch(function (err) {
                 console.error(err);
-                $info.text('Could not parse this OpenPGP key file.');
+                $info.text('Could not read key file.');
             });
     });
 });
 
-// === Crypto helpers ===
-
-/**
- * Load a PGP key from the #key file input.
- * @param {'public'|'private'} type Key type (only used for error messages).
- * @returns {Promise<string>} ASCII-armored key content.
- */
-let loadKey = async function(type) {
+// Load key file contents as text
+let loadKey = async type => {
     const files = $('#key').prop('files');
-
     if (!files || files.length === 0) {
-        throw new Error('No ' + type + ' key file selected.');
+        alert('Add a ' + type + ' key first.');
+        return;
     }
-
-    return files[0].text();
+    return await files[0].text();
 };
 
+// Encrypt with public key (OpenPGP.js v6)
 async function encrypt(message) {
-    const pubKey = await loadKey('public');
+    const pubKeyArmored = await loadKey('public');
+    if (!pubKeyArmored) {
+        throw new Error('Missing public key');
+    }
 
-    const options = {
-        message: openpgp.message.fromText(message),
-        publicKeys: (await openpgp.key.readArmored(pubKey)).keys
-    };
+    const publicKey = await openpgp.readKey({ armoredKey: pubKeyArmored });
+    const messageObj = await openpgp.createMessage({ text: message });
 
-    return new Promise(function(resolve, reject) {
-        openpgp.encrypt(options)
-            .then(function(ciphertext) {
-                resolve(ciphertext.data);
-            })
-            .catch(reject);
+    const encrypted = await openpgp.encrypt({
+        message: messageObj,
+        encryptionKeys: publicKey
     });
+
+    // In v6, encrypt returns an armored string by default
+    return encrypted;
 }
 
+// Decrypt with private key (OpenPGP.js v6)
 async function decrypt(message, passphrase) {
-    const privKey = await loadKey('private');
-    const privKeyObj = (await openpgp.key.readArmored(privKey)).keys[0];
+    const privKeyArmored = await loadKey('private');
+    if (!privKeyArmored) {
+        throw new Error('Missing private key');
+    }
 
-    await privKeyObj.decrypt(passphrase);
-
-    const options = {
-        message: await openpgp.message.readArmored(message),
-        privateKeys: [privKeyObj]
-    };
-
-    return new Promise(function(resolve, reject) {
-        openpgp.decrypt(options)
-            .then(function(plaintext) {
-                resolve(plaintext.data);
-            })
-            .catch(reject);
+    const privateKey = await openpgp.readPrivateKey({ armoredKey: privKeyArmored });
+    const decryptedPrivateKey = await openpgp.decryptKey({
+        privateKey,
+        passphrase
     });
+
+    const messageObj = await openpgp.readMessage({ armoredMessage: message });
+
+    const { data } = await openpgp.decrypt({
+        message: messageObj,
+        decryptionKeys: decryptedPrivateKey
+    });
+
+    return data;
 }
 
+// Sign cleartext message (OpenPGP.js v6)
 async function sign(message, passphrase) {
-    const privKey = await loadKey('private');
-    const privKeyObj = (await openpgp.key.readArmored(privKey)).keys[0];
+    const privKeyArmored = await loadKey('private');
+    if (!privKeyArmored) {
+        throw new Error('Missing private key');
+    }
 
-    await privKeyObj.decrypt(passphrase);
-
-    const options = {
-        message: openpgp.cleartext.fromText(message),
-        privateKeys: [privKeyObj]
-    };
-
-    return new Promise(function(resolve, reject) {
-        openpgp.sign(options)
-            .then(function(signed) {
-                resolve(signed.data);
-            })
-            .catch(reject);
+    const privateKey = await openpgp.readPrivateKey({ armoredKey: privKeyArmored });
+    const decryptedPrivateKey = await openpgp.decryptKey({
+        privateKey,
+        passphrase
     });
+
+    const cleartextMessage = await openpgp.createCleartextMessage({ text: message });
+
+    const signed = await openpgp.sign({
+        message: cleartextMessage,
+        signingKeys: decryptedPrivateKey
+    });
+
+    // Returns a clear-signed armored string
+    return signed;
 }
 
+// Verify clear-signed message (OpenPGP.js v6)
 async function verify(message) {
-    const pubKey = await loadKey('public');
+    const pubKeyArmored = await loadKey('public');
+    if (!pubKeyArmored) {
+        throw new Error('Missing public key');
+    }
 
-    const options = {
-        message: await openpgp.cleartext.readArmored(message),
-        publicKeys: (await openpgp.key.readArmored(pubKey)).keys
-    };
-
-    return new Promise(function(resolve, reject) {
-        openpgp.verify(options)
-            .then(function(verified) {
-                const validity = verified.signatures &&
-                    verified.signatures[0] &&
-                    verified.signatures[0].valid;
-
-                if (validity) {
-                    resolve(verified.signatures[0].keyid.toHex());
-                } else {
-                    resolve(null);
-                }
-            })
-            .catch(reject);
+    const publicKey = await openpgp.readKey({ armoredKey: pubKeyArmored });
+    const cleartextMessage = await openpgp.readCleartextMessage({
+        cleartextMessage: message
     });
+
+    const verificationResult = await openpgp.verify({
+        message: cleartextMessage,
+        verificationKeys: publicKey
+    });
+
+    const signature = verificationResult.signatures[0];
+    const { verified, keyID } = signature;
+
+    try {
+        await verified; // throws if invalid
+        return keyID.toHex();
+    } catch (e) {
+        return null;
+    }
 }
 
+// Generate a new RSA key pair (OpenPGP.js v6)
 async function generate(name, email, passphrase) {
     const options = {
-        userIds: [{ name: name, email: email }],
-        numBits: 4096,
+        type: 'rsa',
+        rsaBits: 4096,
+        userIDs: [{ name: name, email: email }],
         passphrase: passphrase,
+        format: 'armored'
     };
 
-    return new Promise(function(resolve, reject) {
-        openpgp.generateKey(options)
-            .then(function(key) {
-                resolve({
-                    pub: key.publicKeyArmored,
-                    priv: key.privateKeyArmored,
-                });
-            })
-            .catch(reject);
-    });
+    const { privateKey, publicKey } = await openpgp.generateKey(options);
+
+    return {
+        pub: publicKey,
+        priv: privateKey
+    };
 }

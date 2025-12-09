@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About – PGP Offline Tools</title>
+
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+    <link rel="icon" type="image/png" href="./img/favicon-16.png">
+    <link rel="icon" type="image/png" href="./img/favicon-32.png">
+
+    <link rel="stylesheet" href="./css/pure-1.0.0.min.css">
+    <link rel="stylesheet" href="./css/pure-1.0.0.responsive.min.css">
+    <link rel="stylesheet" href="./css/utils.css">
+</head>
+
+<body>
+<header>PGP Offline Tools</header>
+
+<nav>
+    <div class="pure-menu pure-menu-horizontal">
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item"><a href="./index.html" class="pure-menu-link">Home</a></li>
+            <li class="pure-menu-item"><a href="./encrypt.html" class="pure-menu-link">Encrypt</a></li>
+            <li class="pure-menu-item"><a href="./decrypt.html" class="pure-menu-link">Decrypt</a></li>
+            <li class="pure-menu-item"><a href="./sign.html" class="pure-menu-link">Sign</a></li>
+            <li class="pure-menu-item"><a href="./verify.html" class="pure-menu-link">Verify</a></li>
+            <li class="pure-menu-item"><a href="./generate.html" class="pure-menu-link">Generate</a></li>
+            <li class="pure-menu-item pure-menu-selected"><a href="./about.html" class="pure-menu-link">About</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <div class="page-container">
+        <h2 style="text-align:center; margin-top:25px;">About / Security Model</h2>
+
+        <p style="text-align:center; max-width:800px; margin:0 auto 30px; line-height:1.5;">
+            PGP Offline Tools is a small, auditable set of client-side OpenPGP utilities
+            for encrypting, decrypting, signing, verifying, and generating keys.
+            It is designed to be simple, transparent, and easy to run fully offline.
+        </p>
+
+        <section style="max-width:800px; margin:0 auto 30px;">
+            <h3>Purpose</h3>
+            <p style="line-height:1.5;">
+                The goal of this project is to provide a minimal, browser-based toolkit
+                for basic OpenPGP operations, without requiring any server-side components,
+                accounts, or external services. The code is intentionally small and kept
+                in plain HTML/JavaScript so that it can be reviewed easily.
+            </p>
+        </section>
+
+        <section style="max-width:800px; margin:0 auto 30px;">
+            <h3>Security model</h3>
+            <ul>
+                <li><strong>Client-side only:</strong> all cryptographic operations are executed
+                    locally in your browser using OpenPGP.js.</li>
+                <li><strong>No backend:</strong> there is no server, database, or API used
+                    by the application. The project consists only of static files.</li>
+                <li><strong>No network requests:</strong> the application does not
+                    intentionally make any HTTP requests. You can disconnect from
+                    the internet and keep using all features.</li>
+                <li><strong>No telemetry or analytics:</strong> no tracking scripts,
+                    analytics, or external embeds are included.</li>
+                <li><strong>No persistent storage:</strong> keys and messages are not
+                    stored by the application. Once you close the page or refresh the
+                    browser, the in-memory data is lost.</li>
+            </ul>
+        </section>
+
+        <section style="max-width:800px; margin:0 auto 30px;">
+            <h3>Cryptography and dependencies</h3>
+            <p style="line-height:1.5;">
+                PGP Offline Tools relies on the following core libraries:
+            </p>
+            <ul>
+                <li><strong>OpenPGP.js</strong> – used for all OpenPGP operations
+                    (encryption, decryption, signing, verification, and key generation).</li>
+                <li><strong>jQuery</strong> – used for simple DOM handling and event
+                    binding in the UI.</li>
+                <li><strong>PureCSS</strong> – used for basic layout and styling.</li>
+            </ul>
+            <p style="line-height:1.5;">
+                The exact versions in this release are documented in the source code and
+                in the project README. For high-security use cases, you should review
+                the current library versions and changelogs before use.
+            </p>
+        </section>
+
+        <section style="max-width:800px; margin:0 auto 30px;">
+            <h3>Threat model and limitations</h3>
+            <ul>
+                <li><strong>Local environment trust:</strong> this tool assumes that
+                    your browser, operating system, and machine are not compromised.
+                    If your device is infected with malware, the security guarantees
+                    of this project do not hold.</li>
+                <li><strong>No key management:</strong> advanced key management functions
+                    such as revocation certificates, key expiration, trust settings,
+                    or keyservers are out of scope.</li>
+                <li><strong>No automatic updates:</strong> static files do not update
+                    themselves. You are responsible for downloading updated versions
+                    of the project when they become available.</li>
+                <li><strong>Review encouraged:</strong> for sensitive use, you should
+                    review the HTML/JS source, verify the integrity of the files you
+                    download, and confirm that they match the repository you trust.</li>
+            </ul>
+        </section>
+
+        <section style="max-width:800px; margin:0 auto 40px;">
+            <h3>Maintainer</h3>
+            <p style="line-height:1.5;">
+                PGP Offline Tools is maintained by <strong>URANOZ SOLUTIONS</strong>.
+                The full source code, issues, and releases are available on GitHub:
+            </p>
+            <p>
+                <a href="https://github.com/uranozdev/pgpoffline"
+                   target="_blank">
+                    https://github.com/uranozdev/pgpoffline
+                </a>
+            </p>
+        </section>
+    </div>
+</main>
+
+<footer style="text-align:center; padding:20px 0; margin-top:30px; color:#666;">
+    © <span id="year"></span> URANOZ SOLUTIONS — All rights reserved.<br>
+    <a href="https://github.com/uranozdev/pgpoffline"
+       target="_blank"
+       style="color:#888; text-decoration:none;">
+        GitHub Repository
+    </a>
+</footer>
+
+<script>
+    // Automatically set current year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
