@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.2] - 2025-12-11
+### Added
+- Status message area and contextual feedback for all tools (encrypt, decrypt, sign, verify, generate).
+- Automatic focus on result fields after successful operations to improve usability.
+- Basic validation for armored PGP messages and clear-signed messages before invoking OpenPGP.js.
+- Environment warning when the browser does not fully support the Web Crypto API.
+- SEO meta tags (title, description, keywords) for all main pages to improve discoverability.
+
+### Changed
+- Improved error messages for invalid inputs, missing keys or incorrect message formats.
+- Refined user-facing text to be clearer and more helpful when operations fail.
+
+### Security
+- Added light input validation for PGP armor formats to reduce confusing failures.
+- Confirmed that all changes preserve the offline-only, client-side security model.
+
+
 ## [1.0.1] - 2025-12-10
 ### Added
 - Added GitHub repository link to all pages.

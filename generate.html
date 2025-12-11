@@ -3,20 +3,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PGP Generate</title>
+    <title>Generate Keys – PGP Offline Tools</title>
 
-    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-    <link rel="icon" type="image/png" href="./img/favicon-16.png">
-    <link rel="icon" type="image/png" href="./img/favicon-32.png">
+    <meta name="description" content="Generate new RSA OpenPGP key pairs (4096 bits) securely and offline in your browser.">
+    <meta name="keywords" content="PGP, OpenPGP, generate keys, RSA, keypair, offline encryption, OpenPGP.js, URANOZ SOLUTIONS">
+    <meta name="robots" content="index,follow">
 
     <link rel="stylesheet" href="./css/pure-1.0.0.min.css">
     <link rel="stylesheet" href="./css/pure-1.0.0.responsive.min.css">
     <link rel="stylesheet" href="./css/utils.css">
 
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+    <link rel="alternate icon" type="image/png" href="./img/favicon-16.png">
+    <link rel="alternate icon" type="image/png" href="./img/favicon-32.png">
+
     <script src="./js/jquery.min.js"></script>
     <script src="./js/openpgp.min.js"></script>
     <script src="./js/utils.js"></script>
 </head>
+
 <body>
 <header>PGP Offline Tools</header>
 <nav>
@@ -76,6 +81,7 @@
                               class="pure-input-1" cols="30" rows="10"
                               readonly
                               placeholder="The generated private key will appear here."></textarea>
+                    <div id="status" class="status-message" aria-live="polite"></div>
                 </fieldset>
             </form>
         </div>

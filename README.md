@@ -42,7 +42,42 @@ Summary:
 
 No build step is required.
 
+
+## ✅ Manual Test Script
+
+To manually verify that everything is working correctly:
+
+1. Open `generate.html` and create a new key pair (name + email + passphrase).
+2. Copy the generated **public key** into a file and load it on `encrypt.html`.
+3. Enter a test message and encrypt it.
+4. Copy the encrypted message and paste it into `decrypt.html`.
+5. Load the matching **private key**, enter the same passphrase and decrypt the message.
+6. Copy the decrypted output and confirm that it matches the original plaintext.
+7. On `sign.html`, load the private key, enter a message and sign it.
+8. Copy the signed output and paste it into `verify.html`, then load the public key and verify the signature.
+
+If all of these steps succeed, the core functionality of PGP Offline Tools is working as expected.
+
+
+## 🌐 Browser Compatibility
+
+PGP Offline Tools is designed to work on modern browsers with Web Crypto support:
+
+- Google Chrome (latest versions)
+- Mozilla Firefox (latest versions)
+- Microsoft Edge (Chromium-based)
+- Apple Safari (latest versions)
+
+Older browsers that lack a complete Web Crypto implementation may show a warning and some operations may not work correctly.
+
+
 ## 🚀 Version History
+
+### **1.0.2 — UX, Validation & SEO**
+- Added contextual status messages and automatic focus on result fields.
+- Improved error handling and validation for armored PGP and clear-signed messages.
+- Added environment warning when Web Crypto support is missing or incomplete.
+- Added SEO meta tags (title, description, keywords) to all main HTML pages.
 
 ### **1.0.1 — Security & Transparency Update**
 - Updated OpenPGP.js to **6.2.2**

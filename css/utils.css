@@ -72,6 +72,21 @@ input[type="file"]:focus {
 	color: #555;
 }
 
+/* Status message helper (optional, used by utils.js if #status exists) */
+#status,
+.status-message {
+	margin-top: 10px;
+	font-size: 0.9rem;
+}
+
+.status-success {
+	color: #2e8b57;
+}
+
+.status-error {
+	color: #c0392b;
+}
+
 @media screen and (min-width:48em) {
 	form fieldset {
 		margin: auto 5px !important;

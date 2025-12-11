@@ -3,20 +3,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PGP Verify</title>
+    <title>Verify Signature – PGP Offline Tools</title>
 
-    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-    <link rel="icon" type="image/png" href="./img/favicon-16.png">
-    <link rel="icon" type="image/png" href="./img/favicon-32.png">
+    <meta name="description" content="Verify OpenPGP cleartext signatures using a public key. Fully offline and privacy-focused.">
+    <meta name="keywords" content="PGP, OpenPGP, verify signature, cleartext signature, offline, cryptography, OpenPGP.js, URANOZ SOLUTIONS">
+    <meta name="robots" content="index,follow">
 
     <link rel="stylesheet" href="./css/pure-1.0.0.min.css">
     <link rel="stylesheet" href="./css/pure-1.0.0.responsive.min.css">
     <link rel="stylesheet" href="./css/utils.css">
 
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+    <link rel="alternate icon" type="image/png" href="./img/favicon-16.png">
+    <link rel="alternate icon" type="image/png" href="./img/favicon-32.png">
+
     <script src="./js/jquery.min.js"></script>
     <script src="./js/openpgp.min.js"></script>
     <script src="./js/utils.js"></script>
 </head>
+
 <body>
 <header>PGP Offline Tools</header>
 <nav>
@@ -66,6 +71,7 @@
                          class="pure-input-1"
                          style="min-height: 19em; padding: 0.6em; overflow: auto; white-space: pre-wrap; background-color: #f5f5f5;">
                     </pre>
+                    <div id="status" class="status-message" aria-live="polite"></div>
                 </fieldset>
             </form>
         </div>

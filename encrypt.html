@@ -3,20 +3,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PGP Encrypt</title>
+    <title>Encrypt Message – PGP Offline Tools</title>
 
-    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-    <link rel="icon" type="image/png" href="./img/favicon-16.png">
-    <link rel="icon" type="image/png" href="./img/favicon-32.png">
+    <meta name="description" content="Encrypt plaintext messages using an OpenPGP public key directly in your browser. No servers, no tracking, fully offline.">
+    <meta name="keywords" content="PGP, OpenPGP, encryption, public key, offline encryption, OpenPGP.js, URANOZ SOLUTIONS">
+    <meta name="robots" content="index,follow">
 
     <link rel="stylesheet" href="./css/pure-1.0.0.min.css">
     <link rel="stylesheet" href="./css/pure-1.0.0.responsive.min.css">
     <link rel="stylesheet" href="./css/utils.css">
 
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+    <link rel="alternate icon" type="image/png" href="./img/favicon-16.png">
+    <link rel="alternate icon" type="image/png" href="./img/favicon-32.png">
+
     <script src="./js/jquery.min.js"></script>
     <script src="./js/openpgp.min.js"></script>
     <script src="./js/utils.js"></script>
 </head>
+
 <body>
 <header>PGP Offline Tools</header>
 <nav>
@@ -59,8 +64,8 @@
             <!-- Right column: encrypted message + copy -->
             <fieldset class="pure-u-1 pure-u-md-1-2">
                 <label for="result">Encrypted message</label>
-                <textarea name="result" id="result"
-                          class="pure-input-1" cols="30" rows="19" readonly></textarea>
+                <textarea name="result" id="result" class="pure-input-1" cols="30" rows="19" readonly></textarea>
+                <div id="status" class="status-message" aria-live="polite"></div>
 
                 <button type="button" id="copy-result" class="pure-button pure-input-1">
                     Copy
